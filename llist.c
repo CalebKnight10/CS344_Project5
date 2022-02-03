@@ -6,6 +6,9 @@
 
 #include "llist.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 
 
 // ih -> insert head
@@ -13,6 +16,31 @@
 // dh -> delete tail
 // f  -> free entire list
 // p  -> print list to stdout
+
+void parse_command()
+{
+	// if(argc < 2) {
+	// 	perror("Error: ");
+	// }
+
+	// for(int i = 0; i < argc; i++) {
+	// 	if (strcmp(argv[i], "ih")) {
+	// 		printf("Insert the following int at the head of the list");
+	// 	} 
+	// 	else if (strcmp(argv[i], "it")) {
+	// 		printf("Insert the following int at the tail of the list");
+	// 	}
+	// 	else if (strcmp(argv[i], "dh")) {
+	// 		printf("Delete the node at the tail");
+	// 	}
+	// 	else if (strcmp(argv[i], "f")) {
+	// 		printf("Entire list freed");
+	// 	}
+	// 	else if (strcmp(argv[i], "p")) {
+	// 		printf("List printed to stdout");
+	// 	}
+	// }
+}
 
 void llist_insert_head(struct node **head, struct node *n) 
 {
@@ -61,7 +89,27 @@ void node_free(struct node *n)
 	//by node_alloc()
 }
 
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
+	if(argc < 2) {
+		perror("Error: ");
+	}
 
+	for(int i = 0; i < argc; i++) {
+		if (strcmp(argv[i], "ih")) {
+			printf("Insert the following int at the head of the list\n");
+		} 
+		else if (strcmp(argv[i], "it")) {
+			printf("Insert the following int at the tail of the list\n");
+		}
+		else if (strcmp(argv[i], "dh")) {
+			printf("Delete the node at the tail\n");
+		}
+		else if (strcmp(argv[i], "f")) {
+			printf("Entire list freed\n");
+		}
+		else if (strcmp(argv[i], "p")) {
+			printf("List printed to stdout\n");
+		}
+	}
 }
