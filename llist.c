@@ -25,12 +25,11 @@ void parse_command()
 void llist_insert_head(struct node **head, struct node *n) 
 {
 	//insert node @ head 
-	while(*head != NULL) {
+	if(*head != NULL) {
 		n -> next = *head;
 		*head = n;
 	}
 	*head = n; // if head is NULL then we simply set new node to head
-
 }
 
 struct node *llist_delete_head(struct node **head)
@@ -70,11 +69,13 @@ void llist_print(struct node *head)
 	//1 -> 12 -> 3490 -> 7
 	//no leading or trailing spaces
 	//if list is empty print [empty]
-	if(head != NULL) {
-		printf("%d -> ", head->value);
-		head = head -> next;
-	} else {
+
+	if (head == NULL) {
 		printf("[empty]\n");
+	}
+	while(head != NULL) {
+		printf("%d -> ", head -> value);
+		head = head -> next;
 	}
 }
 
@@ -90,13 +91,17 @@ void llist_free(struct node **head)
 
 }
 
-struct node *node_alloc(int val)
+struct node *node_alloc(int value)
 {
 	//allocate a new struct node with
-	//value 3490 and a next of NULL
-	val = 3490;
-	struct node *next = NULL;
-	return malloc(sizeof(struct node));
+	struct node *new = NULL;
+
+	new = malloc(sizeof(struct node));
+
+	new -> value = value;
+	new -> next = NULL;
+	
+	return new;
 }
 
 
@@ -109,20 +114,41 @@ void node_free(struct node *n)
 
 int main(int argc, char *argv[])
 {
-	if(argc < 3) {
+    struct node *head = NULL;
+
+
+	if(argc < 2) {
 		printf("Error: Not enough arguments\n");
 	} else {
 		for(int i = 1; i < argc; i++) {
 			if (strcmp(argv[i], "ih") == 0) {
 				printf("Insert the following int at the head of the list\n");
+
+				int value = atoi(argv[++i]);
+				struct node *new_node = node_alloc(value);
+				printf("atoi is: %d\n", value);
+				printf("new node is: %d\n", new_node->value);
+
+				llist_insert_head(&head, new_node); 
 			} else if (strcmp(argv[i], "it") == 0) {
 				printf("Insert the following int at the tail of the list\n");
+
+				int value = atoi(argv[++i]);
+				struct node* new_node = node_alloc(value);
+
+				llist_insert_tail(&head, new_node);
 			} else if (strcmp(argv[i], "dh") == 0) {
-				printf("Delete the node at the tail\n");
+				printf("Delete the node from the head\n");
+
+				llist_delete_head(&head);
 			} else if (strcmp(argv[i], "f") == 0) {
 				printf("Entire list freed\n");
+
+				llist_free(&head);
 			} else if (strcmp(argv[i], "p") == 0) {
 				printf("List printed to stdout\n");
+
+				llist_print(head);
 			}
 		}
 	}
