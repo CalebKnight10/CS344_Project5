@@ -25,8 +25,12 @@ void parse_command()
 void llist_insert_head(struct node **head, struct node *n) 
 {
 	//insert node @ head 
-	//need to have called node with node_alloc()
-	
+	while(*head != NULL) {
+		n -> next = *head;
+		*head = n;
+	}
+	*head = n; // if head is NULL then we simply set new node to head
+
 }
 
 struct node *llist_delete_head(struct node **head)
@@ -35,6 +39,13 @@ struct node *llist_delete_head(struct node **head)
 	//return a pointer to it
 	//return NULL if empty list
 	//doesn't free node, just decouples from list
+	if(*head == NULL) {
+		return NULL;
+	}
+	struct node *temporary_node = *head;
+	*head = (*head) -> next;
+	free(temporary_node);
+	return *head;
 }
 
 void llist_insert_tail(struct node **head, struct node *n)
