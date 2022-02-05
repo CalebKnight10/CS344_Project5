@@ -72,11 +72,11 @@ void llist_print(struct node *head)
 
 	if (head == NULL) {
 		printf("[empty]\n");
-	}
-	while(head != NULL) {
+	} while(head != NULL) {
 		printf("%d -> ", head -> value);
 		head = head -> next;
 	}
+	printf("\n");
 }
 
 void llist_free(struct node **head)
@@ -96,14 +96,13 @@ struct node *node_alloc(int value)
 	//allocate a new struct node with
 	struct node *new = NULL;
 
-	new = malloc(sizeof(struct node));
+	new = malloc(sizeof(struct node)); //assign the allocated node to our new node
 
 	new -> value = value;
 	new -> next = NULL;
-	
+
 	return new;
 }
-
 
 void node_free(struct node *n)
 {
@@ -122,31 +121,31 @@ int main(int argc, char *argv[])
 	} else {
 		for(int i = 1; i < argc; i++) {
 			if (strcmp(argv[i], "ih") == 0) {
-				printf("Insert the following int at the head of the list\n");
+				//printf("Insert the following int at the head of the list\n");
 
 				int value = atoi(argv[++i]);
 				struct node *new_node = node_alloc(value);
-				printf("atoi is: %d\n", value);
-				printf("new node is: %d\n", new_node->value);
+				//printf("atoi is: %d\n", value);
+				//printf("new node is: %d\n", new_node->value);
 
 				llist_insert_head(&head, new_node); 
 			} else if (strcmp(argv[i], "it") == 0) {
-				printf("Insert the following int at the tail of the list\n");
+				//printf("Insert the following int at the tail of the list\n");
 
 				int value = atoi(argv[++i]);
 				struct node* new_node = node_alloc(value);
 
 				llist_insert_tail(&head, new_node);
 			} else if (strcmp(argv[i], "dh") == 0) {
-				printf("Delete the node from the head\n");
+				//printf("Delete the node from the head\n");
 
 				llist_delete_head(&head);
 			} else if (strcmp(argv[i], "f") == 0) {
-				printf("Entire list freed\n");
+				//printf("Entire list freed\n");
 
 				llist_free(&head);
 			} else if (strcmp(argv[i], "p") == 0) {
-				printf("List printed to stdout\n");
+				//printf("List printed to stdout\n");
 
 				llist_print(head);
 			}
