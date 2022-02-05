@@ -70,8 +70,14 @@ void llist_print(struct node *head)
 
 void llist_free(struct node **head)
 {
-	//call node_free() for every node in the list
 	//head will be set to NULL
+	if(*head == NULL) {
+		return;
+	}
+	while(*head != NULL) {
+		node_free(*head);
+	}
+
 }
 
 struct node *node_alloc(int val)
