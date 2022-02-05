@@ -52,6 +52,16 @@ void llist_insert_tail(struct node **head, struct node *n)
 {
 	//insert node @ tail
 	//previously allocated with node_alloc()
+	if(*head == NULL) { //if the list is empty then the first node will also be the last
+		*head = n;
+		return;
+	}
+	struct node *check_node = *head; //use this node to check if the subsequent node(s) are NULL
+
+	while(check_node -> next != NULL) {  //as long as the node we are checking is not NULL then continue searching for NULL
+		check_node = check_node -> next;
+	}
+	check_node -> next = n;
 }
 
 void llist_print(struct node *head)
