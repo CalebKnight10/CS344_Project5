@@ -19,33 +19,14 @@
 
 void parse_command()
 {
-	// if(argc < 2) {
-	// 	perror("Error: ");
-	// }
 
-	// for(int i = 0; i < argc; i++) {
-	// 	if (strcmp(argv[i], "ih")) {
-	// 		printf("Insert the following int at the head of the list");
-	// 	} 
-	// 	else if (strcmp(argv[i], "it")) {
-	// 		printf("Insert the following int at the tail of the list");
-	// 	}
-	// 	else if (strcmp(argv[i], "dh")) {
-	// 		printf("Delete the node at the tail");
-	// 	}
-	// 	else if (strcmp(argv[i], "f")) {
-	// 		printf("Entire list freed");
-	// 	}
-	// 	else if (strcmp(argv[i], "p")) {
-	// 		printf("List printed to stdout");
-	// 	}
-	// }
 }
 
 void llist_insert_head(struct node **head, struct node *n) 
 {
 	//insert node @ head 
 	//need to have called node with node_alloc()
+	
 }
 
 struct node *llist_delete_head(struct node **head)
@@ -68,6 +49,12 @@ void llist_print(struct node *head)
 	//1 -> 12 -> 3490 -> 7
 	//no leading or trailing spaces
 	//if list is empty print [empty]
+	if(head != NULL) {
+		printf("%d -> ", head->value);
+		head = head -> next;
+	} else {
+		printf("[empty]\n");
+	}
 }
 
 void llist_free(struct node **head)
@@ -76,10 +63,13 @@ void llist_free(struct node **head)
 	//head will be set to NULL
 }
 
-struct node *node_alloc(int value)
+struct node *node_alloc(int val)
 {
 	//allocate a new struct node with
 	//value 3490 and a next of NULL
+	val = 3490;
+	struct node *next = NULL;
+	return malloc(sizeof(struct node));
 }
 
 
@@ -87,29 +77,27 @@ void node_free(struct node *n)
 {
 	//free a node that has been allocated
 	//by node_alloc()
+	free(&n);
 }
 
 int main(int argc, char *argv[])
 {
-	if(argc < 2) {
-		perror("Error: ");
+	if(argc < 3) {
+		printf("Error: Not enough arguments\n");
+	} else {
+		for(int i = 1; i < argc; i++) {
+			if (strcmp(argv[i], "ih") == 0) {
+				printf("Insert the following int at the head of the list\n");
+			} else if (strcmp(argv[i], "it") == 0) {
+				printf("Insert the following int at the tail of the list\n");
+			} else if (strcmp(argv[i], "dh") == 0) {
+				printf("Delete the node at the tail\n");
+			} else if (strcmp(argv[i], "f") == 0) {
+				printf("Entire list freed\n");
+			} else if (strcmp(argv[i], "p") == 0) {
+				printf("List printed to stdout\n");
+			}
+		}
 	}
 
-	for(int i = 0; i < argc; i++) {
-		if (strcmp(argv[i], "ih")) {
-			printf("Insert the following int at the head of the list\n");
-		} 
-		else if (strcmp(argv[i], "it")) {
-			printf("Insert the following int at the tail of the list\n");
-		}
-		else if (strcmp(argv[i], "dh")) {
-			printf("Delete the node at the tail\n");
-		}
-		else if (strcmp(argv[i], "f")) {
-			printf("Entire list freed\n");
-		}
-		else if (strcmp(argv[i], "p")) {
-			printf("List printed to stdout\n");
-		}
-	}
 }
